@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>HR Management</title>
+</head>
+<body style="font-family: Arial, sans-serif; background:#f4f6f8; margin:0;">
+
+<!-- ===== TOP BAR ===== -->
+<table width="100%" bgcolor="#34495e" cellpadding="10" cellspacing="0">
+  <tr>
+    <td>
+      <font color="white" size="5"><b>HR System</b></font>
+      &nbsp;&nbsp;&nbsp;
+      <a href="#" style="color:#ccc; text-decoration:none;">Home</a>
+      &nbsp;&nbsp;
+      <a href="#" style="color:#ccc; text-decoration:none;">Contact</a>
+    </td>
+    <td align="right">
+      <input type="text" placeholder="Search..." style="padding:4px;">
+      <button style="padding:4px 10px;">Search</button>
+    </td>
+  </tr>
+</table>
+
+<!-- ===== PAGE HEADER ===== -->
+<table width="100%" cellpadding="15" cellspacing="0">
+  <tr>
+    <td><h2 style="margin:0;">Employee List</h2></td>
+    <td align="right">
+      <button style="background:#1e88e5; color:white; padding:6px 16px; border:none;">+ Add</button>
+    </td>
+  </tr>
+</table>
+
+<!-- ===== EMPLOYEE TABLE ===== -->
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="border-collapse:collapse; background:white; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+  <tr bgcolor="#eef2f7">
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Position</th>
+    <th>Action</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Fatima Beatriz</td>
+    <td>Fatima.Beatriz@gmail.com</td>
+    <td>0985674321</td>
+    <td>Staff</td>
+    <td>
+      <button style="background:#ffc107; border:none; padding:4px 10px;">Edit</button>
+      <button style="background:#dc3545; color:white; border:none; padding:4px 10px;">Delete</button>
+    </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Gabriel Hanna</td>
+    <td>Gabriel.Hanna@gmail.com</td>
+    <td>0353674231</td>
+    <td>Staff</td>
+    <td>
+      <button style="background:#ffc107; border:none; padding:4px 10px;">Edit</button>
+      <button style="background:#dc3545; color:white; border:none; padding:4px 10px;">Delete</button>
+    </td>
+  </tr>
+</table>
+
+<br><br>
+
+<!-- ===== NEW EMPLOYEE FORM ===== -->
+<table width="650" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:white; box-shadow:0 3px 8px rgba(0,0,0,0.15);">
+  <tr bgcolor="#0d6efd">
+    <td colspan="2" style="color:white; padding:10px;">
+      <b>New Employee</b>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding:20px;">
+      <form>
+        <table width="100%" cellpadding="6" cellspacing="0">
+          <tr>
+            <td>
+              <label>Name</label><br>
+              <input type="text" style="width:100%; padding:4px;">
+            </td>
+            <td>
+              <label>Email</label><br>
+              <input type="email" style="width:100%; padding:4px;">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Phone</label><br>
+              <input type="text" style="width:100%; padding:4px;">
+            </td>
+            <td>
+              <label>Position</label><br>
+              <select style="width:100%; padding:4px;">
+                <option>-- Select Position --</option>
+                <option>Staff</option>
+                <option>Manager</option>
+                <option>CEO</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label>Sex</label><br>
+              <input type="radio" name="gender"> Male
+              &nbsp;&nbsp;
+              <input type="radio" name="gender"> Female
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" align="right" style="border-top:1px solid #ccc; padding-top:12px;">
+              <button type="submit" style="background:#28a745; color:white; padding:5px 16px; border:none;">Save</button>
+              <button type="button" style="background:#6c757d; color:white; padding:5px 16px; border:none;">Cancel</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+</table>
