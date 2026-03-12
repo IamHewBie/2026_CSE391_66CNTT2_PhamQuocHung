@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BAI 1</title>
+</head>
+<body>
+
+<h1 id="title">Học JavaScript DOM</h1>
+
+<p class="text">Đoạn văn 1</p>
+<p class="text">Đoạn văn 2</p>
+<p class="text">Đoạn văn 3</p>
+
+<button id="btn">Click me</button>
+
+<script>
+
+    const firstText = document.querySelector(".text");
+    console.log("querySelector:", firstText);
+
+    const allText = document.querySelectorAll(".text");
+    console.log("querySelectorAll:", allText);
+
+    const title = document.getElementById("title");
+    console.log("getElementById:", title);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Event Listeners</title>
+
+<style>
+    .active {
+        background-color: lightblue;
+    }
+    #box {
+        width: 200px;
+        height: 100px;
+        background: lightgray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+<h2 id="title">Click vào nút để thay đổi</h2>
+<button id="btn">Click me</button>
+<div id="box">Hover vào đây</div>
+<script>
+    const btn = document.getElementById("btn");
+    const title = document.getElementById("title");
+    const box = document.getElementById("box");
+    // 1. Gán sự kiện click cho nút
+    btn.addEventListener("click", function() {
+        console.log("Button clicked");
+    });
+  // 2. Gán nhiều listeners cho cùng 1 phần tử
+    btn.addEventListener("click", function() {
+        title.textContent = "Bạn vừa click nút!";
+    });
+    btn.addEventListener("click", function() {
+        document.body.classList.toggle("active");
+    });
+    // 3. Sự kiện mouseenter
+    box.addEventListener("mouseenter", function() {
+        box.textContent = "Chuột đang ở trong box";
+    });
+    // 4. Sự kiện mouseleave
+    box.addEventListener("mouseleave", function() {
+        box.textContent = "Chuột đã rời khỏi box";
+    });
+</script>
+
+</body>
+</html>

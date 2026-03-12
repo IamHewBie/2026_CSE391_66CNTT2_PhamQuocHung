@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BAI 2</title>
+</head>
+
+<body>
+    <h1 id="title">Tiêu đề ban đầu</h1>
+    <div id="content"></div>
+    <ul id="list">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li id="removeItem">JavaScript</li>
+    </ul>
+    <script>
+        // 1. Thay đổi văn bản tiêu đề bằng textContent
+        const title = document.getElementById("title");
+        title.textContent = "Tiêu đề đã được thay đổi";
+        // 2. Chèn thêm HTML vào div bằng innerHTML
+        const content = document.getElementById("content");
+        content.innerHTML = "<p>Đây là đoạn văn được thêm bằng innerHTML</p>";
+        // 3. Tạo thẻ <li> mới bằng createElement
+        const newItem = document.createElement("li");
+        newItem.textContent = "ReactJS";
+        // 4. Append phần tử vào danh sách <ul>
+        const list = document.getElementById("list");
+        list.append(newItem);
+        // 5. Xóa một phần tử bằng remove()
+        const itemToRemove = document.getElementById("removeItem");
+        itemToRemove.remove();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Attributes & Classes</title>
+
+    <style>
+        .highlight {
+            color: red;
+            font-weight: bold;
+        }
+
+        .dark {
+            background: black;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="title">Học JavaScript DOM</h2>
+    <img id="image" src="https://via.placeholder.com/150">
+    <br><br>
+    <button onclick="changeImage()">Đổi ảnh</button>
+    <button onclick="toggleDark()">Toggle Dark Mode</button>
+    <script>
+        // 1. Thay đổi thuộc tính src của img
+        const img = document.getElementById("image");
+        function changeImage() {
+            img.src = "https://via.placeholder.com/300";
+        }
+        // 2. Dot notation (gán property)
+        const title = document.getElementById("title");
+        title.style.color = "blue";
+        // 3. Thêm class
+        title.classList.add("highlight");
+        // 4. Xóa class
+        setTimeout(() => {
+            title.classList.remove("highlight");
+        }, 3000);
+        // 5. Toggle class
+        function toggleDark() {
+            document.body.classList.toggle("dark");
+        }
+        // 6. Kiểm tra class tồn tại
+        console.log(
+            "Có class highlight không:",
+            title.classList.contains("highlight")
+        );
+    </script>
+</body>
+
+</html>

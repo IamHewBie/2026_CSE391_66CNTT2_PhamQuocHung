@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Promise </title>
+</head>
+
+<body>
+    <h2>Promise Demo</h2>
+    <button id="btn">Lấy dữ liệu</button>
+    <script>
+        // 1. Tạo Promise giả lập lấy dữ liệu sau 2 giây
+        function fetchData() {
+            return new Promise((resolve, reject) => {
+                console.log("Đang lấy dữ liệu...");
+                setTimeout(() => {
+                    const success = true; // đổi thành false để test lỗi
+                    if (success) {
+                        resolve("Dữ liệu đã được tải!");
+                    } else {
+                        reject("Không thể lấy dữ liệu");
+                    }
+                }, 2000);
+            });
+        }
+        // 2 + 3 + 4: then, chain promise, catch lỗi
+        document.getElementById("btn").addEventListener("click", () => {
+            fetchData()
+                .then((data) => {
+                    console.log("Bước 1:", data);
+                    return "Xử lý dữ liệu bước 2";
+                })
+                .then((result) => {
+                    console.log("Bước 2:", result);
+                    return "Xử lý dữ liệu bước 3";
+                })
+                .then((final) => {
+                    console.log("Bước 3:", final);
+                    // 4. Mô phỏng lỗi
+                    throw new Error("Lỗi ở bước cuối");
+                })
+                .catch((error) => {
+                    console.log("Đã bắt lỗi:", error.message);
+                });
+        });
+        // 5. Chuyển callback truyền thống sang Promise
+        // Callback cũ
+        function getDataCallback(callback) {
+            setTimeout(() => {
+                callback("Dữ liệu từ callback");
+            }, 1000);
+        }
+        // Promise version
+        function getDataPromise() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Dữ liệu từ Promise");
+                }, 1000);
+            });
+        }
+        // Test Promise
+        getDataPromise().then(data => console.log(data));
+    </script>
+</body>
+
+</html>

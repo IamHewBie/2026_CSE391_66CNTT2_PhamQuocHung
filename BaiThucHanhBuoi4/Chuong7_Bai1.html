@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Event</title>
+    <style>
+        #parent {
+            padding: 20px;
+            background: lightblue;
+        }
+        #child {
+            padding: 20px;
+            background: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Event Demo</h2>
+    <!-- 1. Click event -->
+    <button id="btn">Click me</button>
+    <br><br>
+    <!-- 2. Keyboard event -->
+    <input type="text" id="input" placeholder="Nhấn phím bất kỳ">
+    <br><br>
+    <!-- 3. Form submit -->
+    <form id="myForm">
+        <input type="text" placeholder="Nhập tên">
+        <button type="submit">Submit</button>
+    </form>
+    <br><br>
+    <!-- 4. Bubbling -->
+    <div id="parent">
+        Parent
+        <div id="child">Child</div>
+    </div>
+    <br><br>
+    <!-- 5. Event delegation -->
+    <ul id="list">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ul>
+    <script>
+        // 1. Click event listener
+        const btn = document.getElementById("btn");
+        btn.addEventListener("click", () => {
+            alert("Button clicked!");
+        });
+        // 2. Keyboard event listener
+        const input = document.getElementById("input");
+        input.addEventListener("keydown", (event) => {
+            console.log("Phím vừa nhấn:", event.key);
+        });
+        // 3. Form submit + ngăn reload trang
+        const form = document.getElementById("myForm");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            alert("Form đã submit nhưng không reload trang");
+        });
+        // 4. Event bubbling
+        const parent = document.getElementById("parent");
+        const child = document.getElementById("child");
+        parent.addEventListener("click", () => {
+            console.log("Parent clicked");
+        });
+        child.addEventListener("click", () => {
+            console.log("Child clicked");
+        });
+        // 5. Event delegation cho UL
+        const list = document.getElementById("list");
+        list.addEventListener("click", (event) => {
+            if (event.target.tagName === "LI") {
+                alert("Bạn click vào: " + event.target.textContent);
+            }
+        });
+    </script>
+</body>
+
+</html>
