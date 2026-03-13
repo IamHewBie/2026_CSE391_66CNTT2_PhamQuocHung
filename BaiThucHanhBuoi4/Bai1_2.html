@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý điểm sinh viên</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+        }
+
+        input,
+        select,
+        button {
+            padding: 6px;
+            margin: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 700px;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #eee;
+            cursor: pointer;
+        }
+
+        .yeu {
+            background: yellow;
+        }
+
+        .stats {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Quản lý điểm sinh viên</h2>
+
+    <!-- Thêm sinh viên -->
+    <input id="name" placeholder="Họ tên">
+    <input id="score" placeholder="Điểm">
+    <button id="addBtn">Thêm</button>
+
+    <br>
+
+    <!-- tìm kiếm -->
+    <input id="search" placeholder="Tìm kiếm theo tên">
+
+    <!-- lọc -->
+    <select id="filter">
+        <option value="all">Tất cả</option>
+        <option value="Giỏi">Giỏi</option>
+        <option value="Khá">Khá</option>
+        <option value="Trung bình">Trung bình</option>
+        <option value="Yếu">Yếu</option>
+    </select>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Họ tên</th>
+                <th id="scoreHeader">Điểm ▲▼</th>
+                <th>Xếp loại</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableBody">
+
+        </tbody>
+
+    </table>
+
+    <div class="stats">
+        Tổng SV: <span id="total">0</span> |
+        Điểm TB: <span id="avg">0</span>
+    </div>
+
+    <script>
+
+        const nameInput = document.getElementById("name")
+        const scoreInput = document.getElementById("score")
+        const addBtn = document.getElementById("addBtn")
+        const tbody = document.getElementById("tableBody")
+
+        const searchInput = document.getElementById("search")
+        const filterSelect = document.getElementById("filter")
+        const scoreHeader = document.getElementById("scoreHeader")
+
+        let students = []
+        let sortAsc = true
+
+        function getRank(score) {
+
+            if (score >= 8.5) return "Giỏi"
+            if (score >= 7) return "Khá"
+            if (score >= 5) return "Trung bình"
+            return "Yếu"
+
+        }
+
+        function addStudent() {
+
+            const name = nameInput.value.trim()
+            const score = Number(scoreInput.value)
+
+            if (name === "") {
+                alert("Tên không được trống")
+                return
+            }
+
+            if (isNaN(score) || score < 0 || score > 10) {
+                alert("Điểm phải từ 0-10")
+                return
+            }
+
+            students.push({ name, score })
+
+            nameInput.value = ""
+            scoreInput.value = ""
+            nameInput.focus()
+
+            applyFilters()
+
+        }
+
+        addBtn.addEventListener("click", addStudent)
+
+        scoreInput.addEventListener("keyup", e => {
+            if (e.key === "Enter") addStudent()
+        })
+
+        function applyFilters() {
+
+            let result = [...students]
+
+            // tìm kiếm
+            const keyword = searchInput.value.toLowerCase()
+
+            result = result.filter(sv =>
+                sv.name.toLowerCase().includes(keyword)
+            )
+
+            // lọc xếp loại
+            const filter = filterSelect.value
+
+            if (filter !== "all") {
+
+                result = result.filter(sv =>
+                    getRank(sv.score) === filter
+                )
+
+            }
+
+            // sắp xếp
+            result.sort((a, b) => {
+
+                return sortAsc ? a.score - b.score : b.score - a.score
+
+            })
+
+            renderTable(result)
+
+        }
+
+        function renderTable(list) {
+
+            tbody.innerHTML = ""
+
+            if (list.length === 0) {
+
+                tbody.innerHTML = `<tr>
+        <td colspan="5">Không có kết quả</td>
+        </tr>`
+
+                return
+
+            }
+
+            list.forEach((sv, index) => {
+
+                const tr = document.createElement("tr")
+
+                if (sv.score < 5) tr.classList.add("yeu")
+
+                tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${sv.name}</td>
+        <td>${sv.score}</td>
+        <td>${getRank(sv.score)}</td>
+        <td>
+        <button data-name="${sv.name}">Xóa</button>
+        </td>
+        `
+
+                tbody.appendChild(tr)
+
+            })
+
+            updateStats()
+
+        }
+
+        function updateStats() {
+
+            const total = students.length
+
+            let avg = 0
+
+            if (total > 0) {
+
+                const sum = students.reduce((s, sv) => s + sv.score, 0)
+
+                avg = (sum / total).toFixed(2)
+
+            }
+
+            document.getElementById("total").textContent = total
+            document.getElementById("avg").textContent = avg
+
+        }
+
+        // xóa
+        tbody.addEventListener("click", e => {
+
+            if (e.target.tagName === "BUTTON") {
+
+                const name = e.target.dataset.name
+
+                students = students.filter(sv => sv.name !== name)
+
+                applyFilters()
+
+            }
+
+        })
+
+        // tìm kiếm realtime
+        searchInput.addEventListener("input", applyFilters)
+
+        // lọc
+        filterSelect.addEventListener("change", applyFilters)
+
+        // sắp xếp
+        scoreHeader.addEventListener("click", () => {
+
+            sortAsc = !sortAsc
+
+            scoreHeader.textContent = sortAsc ? "Điểm ▲" : "Điểm ▼"
+
+            applyFilters()
+
+        })
+
+    </script>
+
+</body>
+
+</html>
